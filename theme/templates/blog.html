@@ -1,9 +1,9 @@
 {% extends "base.html" %}
-{% block title %}{{ SITENAME }} - Blog{% endblock %}
+{% block title %}{{ SITENAME }} > Blog{% endblock %}
 {% block content %}
 <section id="content">
 
-<ol id="post-list">
+<ul id="post-list">
 {% for article in articles %}
         <li>
           <article class="hentry">

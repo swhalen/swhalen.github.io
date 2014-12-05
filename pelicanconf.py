@@ -22,7 +22,7 @@ TAGS_SAVE_AS = ''
 TAG_SAVE_AS = ''
 
 # Paths
-ARTICLE_PATHS = ['']
+ARTICLE_PATHS = ['posts']
 
 # URLs
 ARTICLE_URL = "blog/{slug}/"
