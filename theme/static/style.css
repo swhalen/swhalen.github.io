@@ -4,6 +4,49 @@
     font-family: 'Open Sans', sans-serif;
 }
 
-h1 {
+html, body, div {
+    margin: 0;
+    padding: 0;
+
+}
+
+body {
+    width: 32em;
+    margin: 0 auto;
+    color: #333;
+}
+
+@media all and (max-width: 62em) {
+    body {
+	width: auto;
+        margin: 0 1em;
+    }
+}
+
+#header h1 {
     font-weight: 600;
+}
+
+a {
+    color: #00c;
+    text-decoration: none;
+}
+
+a.active {
+    color: black;
+}
+
+#menu ul {
+    list-style: none;
+    text-align: left;
+    margin: 0;
+    padding: 0;
+}
+
+#menu li {
+    display: inline;
+}
+
+#menu li + li:before {
+    content: '\a0\b7\a0\a0';
 }
