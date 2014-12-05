@@ -49,5 +49,5 @@ a {
 
 #menu li.active a {
     color: black;
-    cursor: pointer;
+    cursor: default;
 }

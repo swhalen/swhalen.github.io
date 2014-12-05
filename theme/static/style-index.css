@@ -1,0 +1,18 @@
+.aligner {
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.content {
+    text-align: center;
+}
+
+#header {
+    align-items: center;
+}
+
+#menu ul {
+    text-align: center;
+}
