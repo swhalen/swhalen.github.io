@@ -14,6 +14,8 @@ TIMEZONE = 'Pacific/Auckland'
 DEFAULT_LANG = u'en'
 
 DEFAULT_PAGINATION = False
+AUTHOR_SAVE_AS = ''
+CATEGORY_SAVE_AS = ''
 
 MENUITEMS = (("Home", "/"), ("Blog", "/blog.html"))
 DIRECT_TEMPLATES = ('index', 'blog', 'archives')
