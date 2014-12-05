@@ -7,7 +7,7 @@
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" type="text/css" href="theme/style.css">
+    <link rel="stylesheet" type="text/css" href="/theme/style.css">
 
     {% if FEED_ALL_ATOM %}
     <link href="{{ FEED_DOMAIN }}/{{ FEED_ALL_ATOM }}" type="application/atom+xml" rel="alternate" title="{{ SITENAME }} Full Atom Feed" />
@@ -34,37 +34,11 @@
     <link href="{{ FEED_DOMAIN }}/{{ TAG_FEED_RSS|format(tag.slug) }}" type="application/rss+xml" rel="alternate" title="{{ SITENAME }} Tags RSS Feed" />
     {% endif %}
     {% endblock head %}
-
   </head>
 
   <body id="index" class="home">
 
-    <header id="banner" class="body">
-      <h1>{{ SITENAME }}</h1>
-    </header>
-
-    <nav id="menu">
-      <ul>
-        {% for title, link in MENUITEMS %}
-        <li><a href="{{ link }}">{{ title }}</a></li>
-        {% endfor %}
-        {% if DISPLAY_PAGES_ON_MENU %}
-        {% for p in PAGES %}
-        <li{% if p == page %} class="active"{% endif %}><a href="{{ SITEURL }}/{{ p.url }}">{{ p.title }}</a></li>
-        {% endfor %}
-        {% else %}
-        {% if DISPLAY_CATEGORIES_ON_MENU %}
-        {% for cat, null in categories %}
-        <li{% if cat == category %} class="active"{% endif %}><a href="{{ SITEURL }}/{{ cat.url }}">{{ cat }}</a></li>
-        {% endfor %}
-        {% endif %}
-        {% endif %}
-        <li><a href="https://github.com/swhalen" target="_blank">Github</a></li>
-        <li><a href="mailto:simon.whalen@gmail.com">Contact</a></li>
-      </ul>
-    </nav>
-
-    {% block content %}
+    {% block main %}
     {% endblock %}
 
   </body>

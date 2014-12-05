@@ -15,7 +15,9 @@ DEFAULT_LANG = u'en'
 
 DEFAULT_PAGINATION = False
 
-MENUITEMS = (("Home", '/'),)
+MENUITEMS = (("Home", "/"), ("Blog", "/blog.html"))
+DIRECT_TEMPLATES = ('index', 'blog', 'archives')
+PAGINATED_DIRECT_TEMPLATES = ('blog',)
 
 # Feed generation is usually not desired when developing
 FEED_ALL_ATOM = None
