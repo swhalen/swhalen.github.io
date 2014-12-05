@@ -14,12 +14,23 @@ TIMEZONE = 'Pacific/Auckland'
 DEFAULT_LANG = u'en'
 
 DEFAULT_PAGINATION = False
+
+# Disable Author pages, Categories, Tags
 AUTHOR_SAVE_AS = ''
 CATEGORY_SAVE_AS = ''
+TAGS_SAVE_AS = ''
+TAG_SAVE_AS = ''
 
-MENUITEMS = (("Home", "/"), ("Blog", "/blog.html"))
-DIRECT_TEMPLATES = ('index', 'blog', 'archives')
-PAGINATED_DIRECT_TEMPLATES = ('blog',)
+# Paths
+ARTICLE_PATHS = ['']
+
+# URLs
+ARTICLE_URL = "blog/{slug}/"
+ARTICLE_SAVE_AS = "blog/{slug}/index.html"
+PAGE_URL = "{slug}/"
+PAGE_SAVE_AS = "{slug}/index.html"
+
+DIRECT_TEMPLATES = ('index',)
 
 # Feed generation is usually not desired when developing
 FEED_ALL_ATOM = None
@@ -27,3 +38,6 @@ CATEGORY_FEED_ATOM = None
 TRANSLATION_FEED_ATOM = None
 AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
+
+# Don't need the cache
+CACHE_CONTENT = False
