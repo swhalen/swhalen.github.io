@@ -22,6 +22,7 @@ TAGS_SAVE_AS = ''
 TAG_SAVE_AS = ''
 
 # Paths
+STATIC_PATHS = ['static']
 ARTICLE_PATHS = ['posts']
 
 # URLs
