@@ -1,26 +1,42 @@
-{% extends "base.html" %}
-{% block title %}{{ SITENAME }} > Blog > {{ article.title}}{% endblock %}
+<!DOCTYPE html>
 
-{% block content %}
-    <section id="content">
+<html lang="{{ DEFAULT_LANG }}">
+  <head>
+    {% block head %}
+    <title>{% block title %}{{ SITENAME }}{% endblock title %}</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="/theme/style.css">
+    {% endblock head %}
+  </head>
+
+  <body>
+
+    {% block main %}
+      <section id="content">
         <header>
-          <h2 class="entry-title">{{ article.title }}</h2>
+          <h1 class="entry-title">{{ article.title }}</h1>
         </header>
 
         <footer class="post-info">
+          <a href="mailto:simon.whalen@gmail.com">Simon Whalen</a>
+          &ndash;
           <abbr class="published" title="{{ article.date.isoformat() }}">
             {{ article.locale_date }}
           </abbr>
-	  {% if article.modified %}
+          {% if article.modified %}
           <abbr class="modified" title="{{ article.modified.isoformat() }}">
             {{ article.locale_modified }}
           </abbr>
-	  {% endif %}
+          {% endif %}
         </footer>
 
         <div class="entry-content">
           {{ article.content }}
         </div>
+    {% endblock main %}
 
-    </section>
-{% endblock %}
+  </body>
+
+</html>
