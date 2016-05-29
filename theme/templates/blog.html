@@ -1,17 +1,16 @@
 {% extends "base.html" %}
 {% block title %}{{ SITENAME }} > Blog{% endblock %}
 {% block content %}
-<section id="content">
-
-<ul id="post-list">
 {% for article in articles %}
-        <li>
-          <article class="hentry">
-                <a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Permalink to {{ article.title|striptags }}">{{ article.title }}</a>&nbsp;&nbsp;<abbr class="published" title="{{ article.date.isoformat() }}"> {{ article.locale_date }} </abbr>
-          </article>
-        </li>
+        <p>
+          <a href="{{ SITEURL }}/{{ article.url }}"
+             rel="bookmark"
+             title="Permalink to {{ article.title|striptags }}">
+            {{ article.title }}</a>
+          &ndash;
+          <abbr class="published" title="{{ article.date.isoformat() }}">
+            {{article.locale_date }}
+          </abbr>
+        </p>
 {% endfor %}
-</ol>
-
-</section>
 {% endblock content %}
