@@ -2,16 +2,19 @@
 
 <html lang="{{ DEFAULT_LANG }}">
   <head>
-    {% block head %}
-    <title>{% block title %}{{ article.title }}{% endblock title %}</title>
+    <title>{% block title %}{{ article.title|striptags }}{% endblock title %}</title>
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" type="text/css" href="/theme/style.css">
-    <script type="text/javascript" async
-            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
-    </script>
-    {% endblock head %}
+
+    {% if article %}
+      {% if article.styles %}
+        {% for style in article.styles %}
+    {{ style }}
+        {% endfor %}
+      {% endif %}
+    {% endif %}
   </head>
 
   <body>
@@ -40,5 +43,13 @@
     {% endblock main %}
 
   </body>
+
+  {% if article %}
+    {% if article.scripts %}
+        {% for script in article.scripts %}
+  {{ script }}
+        {% endfor %}
+    {% endif %}
+  {% endif %}
 
 </html>

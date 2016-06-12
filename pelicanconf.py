@@ -9,11 +9,13 @@ SITEURL = ''
 PATH = 'content'
 THEME = 'theme'
 
-TIMEZONE = 'Pacific/Auckland'
+TIMEZONE = 'Europe/London'
 
 DEFAULT_LANG = u'en'
 
 DEFAULT_PAGINATION = False
+
+TYPOGRIFY = True
 
 # Disable Author pages, Categories, Tags
 AUTHOR_SAVE_AS = ''
@@ -21,13 +23,18 @@ CATEGORY_SAVE_AS = ''
 TAGS_SAVE_AS = ''
 TAG_SAVE_AS = ''
 
+# Plugins
+PLUGIN_PATHS = ['../pelican-plugins']
+PLUGINS = ['render_math', 'dynamic']
+
 # Paths
-STATIC_PATHS = ['static']
-ARTICLE_PATHS = ['posts']
+STATIC_PATHS = ['static', 'blog']
+ARTICLE_PATHS = ['blog']
 
 # URLs
-ARTICLE_URL = "blog/{slug}/"
-ARTICLE_SAVE_AS = "blog/{slug}/index.html"
+USE_FOLDER_AS_CATEGORY = True
+ARTICLE_URL = "blog/{category}/"
+ARTICLE_SAVE_AS = "blog/{category}/index.html"
 PAGE_URL = "{slug}/"
 PAGE_SAVE_AS = "{slug}/index.html"
 
