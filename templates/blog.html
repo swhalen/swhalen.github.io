@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Simon Whalen > Blog</title>
+        <link rel="stylesheet" href="/css/style.css" />
+    </head>
+    <body>
+        <header>
+          <h1>Simon Whalen</h1>
+        </header>
+
+        <nav id="menu">
+          <ul>
+            <li><a href="https://github.com/swhalen" target="_blank">Github</a></li>
+            <li><a href="http://goo.gl/CFvbxT" target="_blank">Google Scholar</a></li>
+            <li><a href="mailto:simon.whalen@gmail.com">Contact</a></li>
+          </ul>
+        </nav>
+
+        $for(posts)$
+        <p><a href="$url$">$title$</a>&nbsp;&nbsp;&middot;&nbsp;&nbsp;$date$</p>
+        $endfor$
+    </body>
+</html>
