@@ -1,6 +1,5 @@
 Title: Randomized Mondrian-style art generator using D3
 Date: 2016-10-01
-D3:
 Scripts: mondrian.js
 Styles: mondrian.css
 

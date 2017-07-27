@@ -1,6 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*- #
-from __future__ import unicode_literals
 
 AUTHOR = u'Simon Whalen'
 SITENAME = u'Simon Whalen'
@@ -25,7 +23,20 @@ TAG_SAVE_AS = ''
 
 # Plugins
 PLUGIN_PATHS = ['../pelican-plugins']
-PLUGINS = ['render_math', 'dynamic']
+PLUGINS = ['pandoc_reader', 'dynamic']
+
+# Pandoc
+PANDOC_ARGS = [
+    '--mathjax',
+    '--smart',
+    '--parse-raw',
+    '-Fpandoc-citeproc',
+    '--csl=american-physics-society.csl',
+]
+
+PANDOC_EXTENSIONS = [
+    '-markdown_in_html_blocks',
+]
 
 # Paths
 STATIC_PATHS = ['static', 'blog']
