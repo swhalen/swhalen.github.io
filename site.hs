@@ -1,11 +1,21 @@
 {-# LANGUAGE OverloadedStrings #-}
+
 import Data.Monoid (mappend)
 import Data.List (isSuffixOf)
+import qualified Data.Set as S
+import Text.Pandoc.Options
+
 import Hakyll
+
+
+postPattern = "blog/*/*.md" .||. "blog/*/*.tex"
 
 
 main :: IO ()
 main = hakyll $ do
+  match "assets/*.bib" $ compile biblioCompiler
+  match "assets/*.csl" $ compile cslCompiler
+
   match "index.html" $ do
     route   idRoute
     compile $ copyFileCompiler
@@ -14,20 +24,22 @@ main = hakyll $ do
     route   idRoute
     compile compressCssCompiler
 
-  match "blog/*/*.md" $ do
+  match postPattern $ do
     route $ setExtension "html"
-    compile $ pandocCompiler
+    compile $ myPandocCompiler
       >>= loadAndApplyTemplate "templates/post.html" postCtx
       >>= relativizeUrls
 
-  match ("blog/*/*" .&&. complement "blog/*/*.md") $ do
+  match ("blog/*/*"
+         .&&. complement postPattern
+         .&&. complement "blog/*/*.metadata") $ do
     route idRoute
     compile copyFileCompiler
 
   create ["blog/index.html"] $ do
     route idRoute
     compile $ do
-        posts <- recentFirst =<< loadAll "blog/*/*.md"
+        posts <- recentFirst =<< loadAll postPattern
         let blogCtx = listField "posts" postCtx (return posts) `mappend`
                       defaultContext
 
@@ -37,6 +49,23 @@ main = hakyll $ do
           >>= cleanIndexUrls
 
   match "templates/*" $ compile templateBodyCompiler
+
+
+myPandocCompiler :: Compiler (Item String)
+myPandocCompiler = do
+    csl <- load $ fromFilePath "assets/cite.csl"
+    bib <- load $ fromFilePath "assets/references.bib"
+    let mathExtensions = [Ext_tex_math_dollars, Ext_tex_math_single_backslash,
+                          Ext_latex_macros]
+        defaultExtensions = writerExtensions defaultHakyllWriterOptions
+        newExtensions = foldr S.insert defaultExtensions mathExtensions
+        writerOptions = defaultHakyllWriterOptions {
+                          writerExtensions = newExtensions,
+                          writerHTMLMathMethod = MathJax ""}
+        read = readPandocBiblio defaultHakyllReaderOptions
+        write = writePandocWith writerOptions
+
+    fmap write (getResourceString >>= read csl bib)
 
 
 postCtx :: Context String

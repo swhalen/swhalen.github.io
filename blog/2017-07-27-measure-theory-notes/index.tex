@@ -1,0 +1,80 @@
+For a proper understanding of probability theory, a bit of measure theory is a necessary evil. In these notes I will sketch the measure theory necessary for probability theory, and hopefully no more. The selection of topics in these notes is based on Chandalia's short article, \emph{A gentle introduction to Measure Theory}~\cite{chandalia_measure_theory_2007}. We assume familiarity with basic set theory.
+
+First, we need a couple of definitions. A \emph{$\sigma$-algebra} $\mathcal{A}$ is a collection of subsets of a set $S$, with the following properties:
+\begin{enumerate}
+\item $S$ is in $\mathcal{A}$, and the empty set $\emptyset$ is in $\mathcal{A}$;
+\item if $A$ is in $\mathcal{A}$, then so is its complement $S \backslash A$;
+\item if $A_1, A_2, A_3, \ldots$ are in $\mathcal{A}$, then their union $A_1 \cup A_2 \cup A_3 \cup \ldots$ is also in $\mathcal{A}$.
+\end{enumerate}
+For probability theory, we are interested in one particular $\sigma$-algebra: the \emph{Borel algebra on the reals}, $\mathcal{B}_\mathbb{R}$. This is the smallest $\sigma$-algebra containing all open intervals (or, equivalently, all closed intervals) of the real line. The elements of the Borel algebra are known as \emph{Borel sets}.
+
+Let $S$ be a set and $\mathcal{A}$ a $\sigma$-algebra over $S$. A \emph{measure} is a function $\mu$ from $\mathcal{A}$ to the extended real line, which satisfies the following properties:
+\begin{enumerate}
+\item $\mu$ is non-negative, that is $\mu(A) \geq 0$ for all $A$ in $\mathcal{A}$;
+\item $\mu(\emptyset) = 0$;
+\item $\mu$ is countably additive, meaning that for all countable collections ${\{A_i\}}_{i \in I}$ of pairwise disjoint sets in $\mathcal{A}$, $\mu \left( \cup_{i \in I} A_i \right) = \sum_{i \in I} \mu(A_i)$.
+\end{enumerate}
+The triplet $(S, \mathcal{A}, \mu)$ is called a \emph{measure space}.
+
+Let $(X, \mathcal{C})$ and $(Y, \mathcal{D})$ be measurable spaces, meaning that the sets $X$ and $Y$ are equipped with respective $\sigma$-algebras $\mathcal{C}$ and $\mathcal{D}$, and can therefore both be assigned measures. A function $f \colon X \to Y$ is said to be \emph{measurable} if for every $D$ in $\mathcal{D}$, $f^{-1}[D]$ is in $\mathcal{C}$. Here we have used the \emph{pre-image}, defined for any $E \subseteq Y$ as
+\begin{equation}
+  \label{eq:1}
+  f^{-1}[E] = \{ x \in X | f(x) \in E \} \,.
+\end{equation}
+The pre-image is not the same as the inverse of a function.
+
+The \emph{Lebesgue measure} is an extension of the notions of length and area to more complicated sets~\cite{mathworld_lebesgue_measure}. If we have an open set $A = \sum_i (a_i, b_i)$ that contains disjoint intervals, the Lebesgue measure is defined by
+\begin{equation}
+  \label{eq:2}
+  \mu_L(A) = \sum_i (b_i - a_i) \,.
+\end{equation}
+For a closed set $A' = [a, b] - \sum_i (a_i b_i)$, the Lebesgue measure is
+\begin{equation}
+  \label{eq:3}
+  \mu_L(A') = (b - a) - \sum_i (b_i - a_i) \,.
+\end{equation}
+In particular, the Lebesgue measure on $(\mathbb{R}, \mathcal{B}_\mathbb{R})$ assigns the measure of each interval to be its length~\cite{chalasani1997}. So, the Lebesgue measure of any closed interval $[a, b]$ of real numbers is the length $b-a$. The open interval $(a, b)$ has the same measure, since the difference between the two sets consists only of the end points $a$ and $b$ and has measure zero. Sets that can be assigned a Lebesgue measure are called \emph{Lebesgue-measurable}.
+
+We will use the Lebesgue measure to define the \emph{Lebesgue integral} on a measure space $(S, \mathcal{A}, \mu_L)$. The indicator function, $1_A$, of $A \subset S$ has value $1$ for all elements of $A$ and value $0$ for all elements of $S \backslash A$. If $A$ is a set in $\mathcal{A}$, we define the Lebesgue integral of its indicator function:
+\begin{equation}
+  \label{eq:4}
+  \int_S 1_A d\mu_L = \mu_L(A) \,.
+\end{equation}
+If $\{A_i\}$ is a sequence of sets in $\mathcal{A}$, we can define a finite linear combination of indicator functions,
+\begin{equation}
+  \label{eq:5}
+  s = \sum_{k=1}^n a_k 1_{A_k} \,,
+\end{equation}
+called a measurable simple function. Its Lebesgue integral is
+\begin{equation}
+  \label{eq:6}
+  \int_S s d\mu_L = \sum_{k=1}^n a_k \mu_L(A_k) \,.
+\end{equation}
+If $B$ is a Lebesgue-measurable subset of $S$, we define
+\begin{equation}
+  \label{eq:7}
+  \int_B s \, d\mu_L = \int_S 1_B s \, d\mu_L = \sum_{k=1}^n a_k \mu_L(A_k \cap B) \,.
+\end{equation}
+If $f$ is a non-negative measurable function on $S$, we can generalise this by defining
+\begin{equation}
+  \label{eq:8}
+  \int_S f \, d\mu_L = \sup\left\{ \int_S s d\mu_L \colon 0 \leq s \leq f \,, \; s \text{ simple} \right\} \,.
+\end{equation}
+To handle signed functions, we simply write $f = f^+ - f^-$ where
+\begin{equation}
+  \label{eq:9}
+  f^\pm =
+  \begin{cases}
+    f & \text{if} \: \pm f > 0 \\ 0 & \text{otherwise,}
+  \end{cases}
+\end{equation}
+and define
+\begin{equation}
+  \label{eq:10}
+  \int_S f \, d\mu_L = \int_S f^+ \, d\mu_L - \int_S f^- \, d\mu_L \,.
+\end{equation}
+If $\int_S |f| d\mu_L < \infty$ we say that $g$ is \emph{Lebesgue-integrable}.
+
+Suppose we have a measure space $(\Omega, \mathcal{F}, P)$. If $P(\Omega) = 1$ we say that this measure space is a probability space.
+
+\subsection{References}
