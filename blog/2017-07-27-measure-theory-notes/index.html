@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Some brief notes on measure theory</title>
+        <link rel="stylesheet" href="../../css/style.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });</script>
+    </head>
+    <body>
+        <header>
+          <h1>Some brief notes on measure theory</h1>
+        </header>
+
+        <footer class="post-info">
+          <a href="../../">Simon Whalen</a>
+          &nbsp;&middot;&nbsp;
+          2017-07-27
+        </footer>
+
+        <p>For a proper understanding of probability theory, a bit of measure theory is a necessary evil. In these notes I will sketch the measure theory necessary for probability theory, and hopefully no more. The selection of topics in these notes is based on Chandalia’s short article, <em>A gentle introduction to Measure Theory</em> <span class="citation">[1]</span>. We assume familiarity with basic set theory.</p>
+<p>First, we need a couple of definitions. A <em><span class="math inline">\(\sigma\)</span>-algebra</em> <span class="math inline">\(\mathcal{A}\)</span> is a collection of subsets of a set <span class="math inline">\(S\)</span>, with the following properties:</p>
+<ol>
+<li><p><span class="math inline">\(S\)</span> is in <span class="math inline">\(\mathcal{A}\)</span>, and the empty set <span class="math inline">\(\emptyset\)</span> is in <span class="math inline">\(\mathcal{A}\)</span>;</p></li>
+<li><p>if <span class="math inline">\(A\)</span> is in <span class="math inline">\(\mathcal{A}\)</span>, then so is its complement <span class="math inline">\(S \backslash A\)</span>;</p></li>
+<li><p>if <span class="math inline">\(A_1, A_2, A_3, \ldots\)</span> are in <span class="math inline">\(\mathcal{A}\)</span>, then their union <span class="math inline">\(A_1 \cup A_2 \cup A_3 \cup \ldots\)</span> is also in <span class="math inline">\(\mathcal{A}\)</span>.</p></li>
+</ol>
+<p>For probability theory, we are interested in one particular <span class="math inline">\(\sigma\)</span>-algebra: the <em>Borel algebra on the reals</em>, <span class="math inline">\(\mathcal{B}_\mathbb{R}\)</span>. This is the smallest <span class="math inline">\(\sigma\)</span>-algebra containing all open intervals (or, equivalently, all closed intervals) of the real line. The elements of the Borel algebra are known as <em>Borel sets</em>.</p>
+<p>Let <span class="math inline">\(S\)</span> be a set and <span class="math inline">\(\mathcal{A}\)</span> a <span class="math inline">\(\sigma\)</span>-algebra over <span class="math inline">\(S\)</span>. A <em>measure</em> is a function <span class="math inline">\(\mu\)</span> from <span class="math inline">\(\mathcal{A}\)</span> to the extended real line, which satisfies the following properties:</p>
+<ol>
+<li><p><span class="math inline">\(\mu\)</span> is non-negative, that is <span class="math inline">\(\mu(A) \geq 0\)</span> for all <span class="math inline">\(A\)</span> in <span class="math inline">\(\mathcal{A}\)</span>;</p></li>
+<li><p><span class="math inline">\(\mu(\emptyset) = 0\)</span>;</p></li>
+<li><p><span class="math inline">\(\mu\)</span> is countably additive, meaning that for all countable collections <span class="math inline">\({\{A_i\}}_{i \in I}\)</span> of pairwise disjoint sets in <span class="math inline">\(\mathcal{A}\)</span>, <span class="math inline">\(\mu \left( \cup_{i \in I} A_i \right) = \sum_{i \in I} \mu(A_i)\)</span>.</p></li>
+</ol>
+<p>The triplet <span class="math inline">\((S, \mathcal{A}, \mu)\)</span> is called a <em>measure space</em>.</p>
+<p>Let <span class="math inline">\((X, \mathcal{C})\)</span> and <span class="math inline">\((Y, \mathcal{D})\)</span> be measurable spaces, meaning that the sets <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are equipped with respective <span class="math inline">\(\sigma\)</span>-algebras <span class="math inline">\(\mathcal{C}\)</span> and <span class="math inline">\(\mathcal{D}\)</span>, and can therefore both be assigned measures. A function <span class="math inline">\(f \colon X \to Y\)</span> is said to be <em>measurable</em> if for every <span class="math inline">\(D\)</span> in <span class="math inline">\(\mathcal{D}\)</span>, <span class="math inline">\(f^{-1}[D]\)</span> is in <span class="math inline">\(\mathcal{C}\)</span>. Here we have used the <em>pre-image</em>, defined for any <span class="math inline">\(E \subseteq Y\)</span> as <span class="math display">\[\label{eq:1}
+  f^{-1}[E] = \{ x \in X | f(x) \in E \} \,.\]</span> The pre-image is not the same as the inverse of a function.</p>
+<p>The <em>Lebesgue measure</em> is an extension of the notions of length and area to more complicated sets <span class="citation">[2]</span>. If we have an open set <span class="math inline">\(A = \sum_i (a_i, b_i)\)</span> that contains disjoint intervals, the Lebesgue measure is defined by <span class="math display">\[\label{eq:2}
+  \mu_L(A) = \sum_i (b_i - a_i) \,.\]</span> For a closed set <span class="math inline">\(A' = [a, b] - \sum_i (a_i b_i)\)</span>, the Lebesgue measure is <span class="math display">\[\label{eq:3}
+  \mu_L(A') = (b - a) - \sum_i (b_i - a_i) \,.\]</span> In particular, the Lebesgue measure on <span class="math inline">\((\mathbb{R}, \mathcal{B}_\mathbb{R})\)</span> assigns the measure of each interval to be its length <span class="citation">[3]</span>. So, the Lebesgue measure of any closed interval <span class="math inline">\([a, b]\)</span> of real numbers is the length <span class="math inline">\(b-a\)</span>. The open interval <span class="math inline">\((a, b)\)</span> has the same measure, since the difference between the two sets consists only of the end points <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> and has measure zero. Sets that can be assigned a Lebesgue measure are called <em>Lebesgue-measurable</em>.</p>
+<p>We will use the Lebesgue measure to define the <em>Lebesgue integral</em> on a measure space <span class="math inline">\((S, \mathcal{A}, \mu_L)\)</span>. The indicator function, <span class="math inline">\(1_A\)</span>, of <span class="math inline">\(A \subset S\)</span> has value <span class="math inline">\(1\)</span> for all elements of <span class="math inline">\(A\)</span> and value <span class="math inline">\(0\)</span> for all elements of <span class="math inline">\(S \backslash A\)</span>. If <span class="math inline">\(A\)</span> is a set in <span class="math inline">\(\mathcal{A}\)</span>, we define the Lebesgue integral of its indicator function: <span class="math display">\[\label{eq:4}
+  \int_S 1_A d\mu_L = \mu_L(A) \,.\]</span> If <span class="math inline">\(\{A_i\}\)</span> is a sequence of sets in <span class="math inline">\(\mathcal{A}\)</span>, we can define a finite linear combination of indicator functions, <span class="math display">\[\label{eq:5}
+  s = \sum_{k=1}^n a_k 1_{A_k} \,,\]</span> called a measurable simple function. Its Lebesgue integral is <span class="math display">\[\label{eq:6}
+  \int_S s d\mu_L = \sum_{k=1}^n a_k \mu_L(A_k) \,.\]</span> If <span class="math inline">\(B\)</span> is a Lebesgue-measurable subset of <span class="math inline">\(S\)</span>, we define <span class="math display">\[\label{eq:7}
+  \int_B s \, d\mu_L = \int_S 1_B s \, d\mu_L = \sum_{k=1}^n a_k \mu_L(A_k \cap B) \,.\]</span> If <span class="math inline">\(f\)</span> is a non-negative measurable function on <span class="math inline">\(S\)</span>, we can generalise this by defining <span class="math display">\[\label{eq:8}
+  \int_S f \, d\mu_L = \sup\left\{ \int_S s d\mu_L \colon 0 \leq s \leq f \,, \; s \text{ simple} \right\} \,.\]</span> To handle signed functions, we simply write <span class="math inline">\(f = f^+ - f^-\)</span> where <span class="math display">\[\label{eq:9}
+  f^\pm =
+  \begin{cases}
+    f &amp; \text{if} \: \pm f &gt; 0 \\ 0 &amp; \text{otherwise,}
+  \end{cases}\]</span> and define <span class="math display">\[\label{eq:10}
+  \int_S f \, d\mu_L = \int_S f^+ \, d\mu_L - \int_S f^- \, d\mu_L \,.\]</span> If <span class="math inline">\(\int_S |f| d\mu_L &lt; \infty\)</span> we say that <span class="math inline">\(g\)</span> is <em>Lebesgue-integrable</em>.</p>
+<p>Suppose we have a measure space <span class="math inline">\((\Omega, \mathcal{F}, P)\)</span>. If <span class="math inline">\(P(\Omega) = 1\)</span> we say that this measure space is a probability space.</p>
+<h2 id="references" class="unnumbered">References</h2>
+<div id="refs" class="references">
+<div id="ref-Chandalia07agentle">
+<p>[1] Chandalia, G.: A gentle introduction to measure theory, <a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.124.3854&amp;rep=rep1&amp;type=pdf" class="uri">http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.124.3854&amp;rep=rep1&amp;type=pdf</a>, (2007)</p>
+</div>
+<div id="ref-mathworld_lebesgue_measure">
+<p>[2] Weisstein, E.W.: Lebesgue measure, <a href="http://mathworld.wolfram.com/LebesgueMeasure.html" class="uri">http://mathworld.wolfram.com/LebesgueMeasure.html</a></p>
+</div>
+<div id="ref-chalasani1997">
+<p>[3] Shreve, S., Chalasani, P., Jha, S.: Stochastic calculus and finance, (1997)</p>
+</div>
+</div>
+    </body>
+</html>
