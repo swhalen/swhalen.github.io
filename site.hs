@@ -53,7 +53,7 @@ main = hakyll $ do
 
 myPandocCompiler :: Compiler (Item String)
 myPandocCompiler = do
-    csl <- load $ fromFilePath "assets/cite.csl"
+    csl <- load $ fromFilePath "assets/springer-mathphys-brackets.csl"
     bib <- load $ fromFilePath "assets/references.bib"
     let mathExtensions = [Ext_tex_math_dollars, Ext_tex_math_single_backslash,
                           Ext_latex_macros]
