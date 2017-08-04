@@ -13,11 +13,8 @@ help:
 	@echo '   make github               upload the web site via gh-pages   '
 	@echo '                                                                '
 
-build:
-	stack build
-
-html: clean build
-	stack exec site rebuild
+html:
+	./site.hs rebuild
 
 clean:
 	[ ! -d $(CACHEDIR) ] || rm -rf $(CACHEDIR)

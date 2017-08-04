@@ -1,3 +1,6 @@
+#!/usr/bin/env stack
+-- stack --resolver lts-9.0 --install-ghc runghc --package hakyll
+
 {-# LANGUAGE OverloadedStrings #-}
 
 import Data.Monoid (mappend)
@@ -5,7 +8,16 @@ import Data.List (isSuffixOf)
 import qualified Data.Set as S
 import Text.Pandoc.Options
 
-import Hakyll
+import Hakyll (
+  Item, Context, Compiler,
+  hakyll, match, route, compile, create,
+  idRoute, setExtension, complement, (.&&.), (.||.),
+  recentFirst, listField, makeItem, fromFilePath,
+  biblioCompiler, cslCompiler, copyFileCompiler, templateBodyCompiler,
+  load, loadAll, loadAndApplyTemplate, relativizeUrls,
+  defaultContext, defaultHakyllReaderOptions, defaultHakyllWriterOptions,
+  withUrls, dateField, getResourceString, readPandocBiblio, writePandocWith,
+  )
 
 
 postPattern = "blog/*/*.md" .||. "blog/*/*.tex"
@@ -18,15 +30,15 @@ main = hakyll $ do
 
   match "index.html" $ do
     route   idRoute
-    compile $ copyFileCompiler
+    compile copyFileCompiler
 
   match "css/*" $ do
     route   idRoute
-    compile compressCssCompiler
+    compile copyFileCompiler
 
   match postPattern $ do
     route $ setExtension "html"
-    compile $ myPandocCompiler
+    compile $ postCompiler
       >>= loadAndApplyTemplate "templates/post.html" postCtx
       >>= relativizeUrls
 
@@ -51,8 +63,15 @@ main = hakyll $ do
   match "templates/*" $ compile templateBodyCompiler
 
 
-myPandocCompiler :: Compiler (Item String)
-myPandocCompiler = do
+postCtx :: Context String
+postCtx =
+    dateField "date" "%Y-%m-%d" `mappend`
+    defaultContext
+
+-- Compilers
+
+postCompiler :: Compiler (Item String)
+postCompiler = do
     csl <- load $ fromFilePath "assets/springer-mathphys-brackets.csl"
     bib <- load $ fromFilePath "assets/references.bib"
     let mathExtensions = [Ext_tex_math_dollars, Ext_tex_math_single_backslash,
@@ -68,21 +87,10 @@ myPandocCompiler = do
     fmap write (getResourceString >>= read csl bib)
 
 
-postCtx :: Context String
-postCtx =
-    dateField "date" "%Y-%m-%d" `mappend`
-    defaultContext
-
+-- Utilities
 
 cleanIndexUrls :: Item String -> Compiler (Item String)
 cleanIndexUrls = return . fmap (withUrls cleanIndex)
-
-
--- cleanIndexHtmls :: Item String -> Compiler (Item String)
--- cleanIndexHtmls = return . fmap (replaceAll pattern replacement)
---     where
---       pattern = "/index.html"
---       replacement = const "/"
 
 
 cleanIndex :: String -> String
