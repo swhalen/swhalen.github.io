@@ -1,1 +1,41 @@
-body{margin:0 auto;max-width:50em;line-height:1.4;padding:0 10px;font-family:serif}p{text-align:justify}h1,h2,h3{font-weight:normal;line-height:1.2}a{text-decoration:none}#menu ul{list-style:none;text-align:left;margin:0;padding:0}#menu li{display:inline}#menu li+li:before{content:'\a0\b7\a0\a0'}#menu li.active a{color:black;cursor:default}
+body {
+    margin: 0 auto;
+    max-width: 50em;
+    line-height: 1.4;
+    padding: 0 10px;
+    font-family: serif;
+}
+
+p {
+    text-align: justify;
+}
+
+h1, h2, h3 {
+    font-weight: normal;
+    line-height: 1.2;
+}
+
+
+a {
+    text-decoration: none;
+}
+
+#menu ul {
+    list-style: none;
+    text-align: left;
+    margin: 0;
+    padding: 0;
+}
+
+#menu li {
+    display: inline;
+}
+
+#menu li + li:before {
+    content: '\a0\b7\a0\a0';
+}
+
+#menu li.active a {
+    color: black;
+    cursor: default;
+}
